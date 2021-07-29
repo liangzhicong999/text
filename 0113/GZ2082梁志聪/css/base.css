@@ -1,0 +1,66 @@
+/* 初始化样式 */
+*{
+    margin:0px;
+    padding:0px;
+}
+
+a{
+    text-decoration: none;
+    display: inline-block;
+    color:#333;
+}
+/* 清除浮动 */
+.clearfix::after{
+    content: "";
+    display: block;
+    clear: both;
+    height: 0px;
+    line-height: 0px;
+    visibility: hidden; /*溢出隐藏 保留原本位置*/
+}
+.clearfix{
+    zoom: 1; /*兼容ie*/
+}
+
+ul,ol{
+    list-style: none;
+}
+
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+/* 固定板心 */
+.container{
+    width:1226px;
+    margin: 0 auto;
+}
+
+input{
+    outline: none;
+}
+
+h1{
+    font-size: 22px;
+}
+h2{
+    font-size: 20px;
+}
+h3{
+    font-size: 18px;
+}
+h4{
+    font-size: 16px;
+}
+h5{
+    font-size: 14px;
+}
+h6{
+    font-size: 12px;
+}
+
+img{
+    display: block;
+}

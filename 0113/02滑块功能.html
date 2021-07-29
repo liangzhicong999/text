@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+        }
+        .scroll{
+            width: 400px;
+            height: 8px;
+            background: #ccc;
+            margin:100px;
+            position: relative;
+        }
+        .scroll .bar{
+            width: 10px;
+            height: 22px;
+            background-color: #369;
+
+            position: absolute;
+            top:-7px;
+            left:0px;
+            cursor: pointer;
+        }
+</style>
+</head>
+<body>
+    <!-- <input type="range" name="" id=""> -->
+
+    <div class="scroll" id="scroll">
+        <!-- 滑块 -->
+        <div class="bar"></div>
+    </div>
+
+    <span>百分比值：</span>
+    <script>
+        // onmousedown  鼠标按下事件
+        // onmousemove  鼠标移动事件
+        // onmouseup    鼠标松开事件
+        // var scroll = document.getElementById("scroll");
+        // scroll.onmousedown = function(){
+        //     console.log("onmousedown  鼠标按下事件")
+        // }
+        // scroll.onmousemove = function(){
+        //     console.log("onmousemove  鼠标移动事件")
+        // }
+        // scroll.onmouseup = function(){
+        //     console.log("onmouseup  鼠标松开事件")
+        // }
+        var scroll = document.getElementById("scroll");
+        var span = document.getElementsByTagName("span")[0];
+        var bar = scroll.children[0];
+        
+        // 1.鼠标按下触发滑块
+        scroll.onmousedown = function(){
+            console.log("滑块按下");
+            var _this = this;
+
+
+            // 2.拖动改变滑块left
+            document.onmousemove = function(event){
+                var  event = event ||window.event;
+                console.log(event.pageX);
+                console.log(_this.offsetLeft)
+                bar.style.left = event.pageX - _this.offsetLeft + "px";
+
+                // 判断可以移动范围
+                var val = parseInt(bar.style.left); //100px
+                var num = _this.offsetWidth - bar.offsetWidth;//div总宽度 - 滑块宽度
+                if(val < 0 ){
+                    bar.style.left = "0px";
+                }else if(val > num){
+                    bar.style.left = num  + "px";
+                }
+
+                span.innerText = "百分比值: " + parseInt(parseInt(bar.style.left) / num * 100) + "%";
+
+                // 清除文字选中效果
+                window.getSelection ? window.getSelection().removeAllRanges(): document.selection.empty();
+
+            }
+
+
+        }
+        // 3.鼠标松开清除拖动事件
+
+        scroll.onmouseup = function(){
+            document.onmousemove = null;
+            console.log("鼠标松开")
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <style>
+        .box{
+            width: 200px;
+            height: 200px;
+            border: 1px solid #A6A6A6;
+            position: fixed;
+            left: 300px;
+            top: 200px;
+            cursor: move;
+            display: none;
+        }
+        .ding{
+            font-size: 20px;
+            height: 30px;
+            line-height: 30px;
+            text-indent: 5px;
+            border-bottom: 1px solid #A6A6A6;
+            position: relative;
+        }
+        .gb{
+
+            color: aqua;
+            margin-right: 5px;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">显示</button>
+    <div class="box" id="box">
+        <div class="ding">
+            <div class="denglu">
+                百度登陆
+            </div>
+            <a href="" class="gb">X</a>
+        </div>
+    </div>
+
+    <script>
+        var btn = document.getElementById("btn");
+        var box = document.getElementById("box");
+        var ding = box.children[0];
+        var denglu = ding.children[0];
+        var gb = ding.children[1];
+        // console.log(gb);
+        btn.onclick = function(){
+            box.style.display = "block";
+        }
+        gb.onclick = function(){
+            box.style.display = "none"
+        }
+
+        denglu.onmousedown = function(event){
+            var x = event.pageX - box.offsetLeft;
+            var y = event.pageY - box.offsetTop;
+            document.onmousemove = function(){
+                var event = event || window.event;
+                console.log(event.pageX,event.pageY);
+                box.style.left = event.pageX - x + "px";
+                box.style.top = event.pageY - y + "px";
+                
+            }
+        }
+        
+        denglu.onmouseup = function(){
+            document.onmousemove = null;
+            console.log("鼠标松开")
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function client(){
+            
+            // ie9+最新浏览器
+            if(window.innerHeight != null){
+                return {
+                    width:window.innerWidth,
+                    height:window.innerHeight
+                }
+            }
+
+            // 标准浏览器兼容
+            if(document.comopatMode === "CSS1Compat"){
+                return {
+                    width:document.documentElement.clientWidth,
+                    height:document.documentElement.clientHeight
+                }
+            }
+
+            // 怪异浏览器
+            return {
+                width: document.body.clientWidth,
+                height: document.body.clientHeight
+            }
+
+        }
+
+        console.log(client().width)
+        console.log(client().height)
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./js/base.js"></script>    
+    <script>
+
+        reSize();//页面开启时调用一次
+        window.onresize =  reSize;//函数体
+        
+        function reSize(){
+            console.log(client().width);
+
+            var W = client().width;
+
+            if(W > 1130){
+                document.body.style.backgroundColor = "red"
+            }else if(W > 960){
+                document.body.style.backgroundColor = "yellow"
+            }else if(W > 640){
+                document.body.style.backgroundColor = "blue"
+            }else if(W > 440){
+                document.body.style.backgroundColor = "green"
+            }else{
+                document.body.style.backgroundColor = "cyan"
+            }
+
+            // 屏幕大于960 颜色红色
+            // 屏幕大于640 颜色蓝色
+            // 屏幕小于640 颜色绿色
+
+        }
+
+
+    </script>
+
+
+</body>
+</html>

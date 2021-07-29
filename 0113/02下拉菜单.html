@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+
+        }
+        select{
+            width: 100px;
+            height: 30px;
+        }
+        ul{
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <select name="" id="selectbox">
+        <option value="111">广州</option>
+        <!-- <option value="">广州1</option>
+        <option value="">广州2</option>
+        <option value="">广州3</option> -->
+    </select>
+    <div class="box" id="box">
+        <div class="value">广州</div>
+        <ul>
+            <li>广州</li>
+            <li>深圳</li>
+            <li>上海</li>
+            <li>深圳</li>
+        </ul>
+    </div>
+
+
+    <script>
+        var selectbox = document.getElementById("seectbox");
+        // var opt = selectbox.children;
+        var box = document.getElementById("box");
+        var show = box.children[0];
+        var uls = box.children[1].children;
+
+        
+    </script>
+</body>
+</html>

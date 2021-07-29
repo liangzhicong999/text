@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+
+        }
+        html,body.box{
+            width: 100%;
+        }
+        .box{
+            position: relative;
+        }
+        .box .item{
+            width: 300px;
+            border:1px solid #D9D9D9;
+            background-color: #fff;
+            padding:5px;
+            float: left;
+            margin: 10px;
+            position: absolute;
+            top:0px;
+            left:0px;
+        }
+        .box .item img{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" id="box">
+
+    </div>
+    <script src="./js/base.js"></script>
+    <script>
+        // 图片数据
+        var imgLists = [
+            "./img/1.gif",
+            "./img/2.jfif",
+            "./img/3.jfif",
+            "./img/4.jfif",
+            "./img/5.jfif",
+            "./img/6.jfif",
+            "./img/7.jfif",
+            "./img/8.jfif",
+            "./img/9.jfif",
+            "./img/10.png",
+        ]
+        var box = document.getElementById("box");
+        var gap = 20; //图片左右边距
+
+        // 创建item里面图片
+        function createDiv(imgs){
+            for(var i = 0;i < imgLists.length;i++){
+                var div = document.createElement("div");
+                div.className = "item";
+                var img = document.createElement("img");
+                img.src = imgLists[i];//图片放入对应位置
+                div.appendChild(img);
+                box.appendChild(div);
+            }
+            // 处理图片位置
+            waterFall();
+        }
+        // createDiv();
+        // createDiv();
+
+        function waterFall(){
+
+            var items = box.children;//所有图片 组成数组
+            // 得到屏幕宽度
+            var pageWidth = client().width;
+            // console.log(pageWidth)
+            var itemWidth = box.children[0].offsetWidth;
+            var itemWidthGap = itemWidth + gap; //宽度加外边距;
+            var columns = parseInt(pageWidth / itemWidthGap); //计算一行可以放置多少张图片  4张
+            // console.log(columns)
+
+            var arrHeight = [];//存储处理过的图片空数组
+            for(var i = 0;i <items.length;i++){
+                var j = i % columns; // 0-3
+
+                if(i < columns){ //处理第一行的照片
+                    items[i].style.top = "0px"; //距离顶部的距离
+                    items[i].style.left = j * itemWidthGap + "px";//距离左边的距离
+                    arrHeight.push(items[i].offsetHeight);//向数组中添加第一行的图片高度
+                    // console.log(items[i].offsetHeight);  // 316  471  466  317
+                }else{  //处理后面的图片
+                    //最小图片高度
+                    var minHeight = arrHeight[0];
+                    var index = 0; //默认位置
+                    for(var z = 0;z < arrHeight.length;z++){
+                        if(minHeight > arrHeight[z]){ 
+                            minHeight = arrHeight[z]; // 得出最小高度赋值给minHeight
+                            index = z;  //重新给index赋值最小高度图片的位置;
+                        }
+                    }
+
+                    //设置下一行的第一个盒子的位置
+                    items[i].style.top = arrHeight[index] +gap + "px"; //设置第一行中高度最小的下方
+                    items[i].style.left = itemWidthGap * index + "px"; 
+
+                    //修改最小一列高度
+                    arrHeight[index] = arrHeight[index] + gap +items[i].offsetHeight;
+                    // console.log(minHeight,index);
+                }
+                
+            }
+            // console.log(arrHeight);
+        }
+        createDiv(imgLists);
+
+        window.onscroll = function(){
+            // 数据请求会获取新数据
+            
+            var newImgLists = [
+                "./img/1.gif",
+                "./img/2.jfif",
+                "./img/2.jfif",
+                "./img/2.jfif",
+                "./img/2.jfif",
+                "./img/2.jfif",
+                "./img/2.jfif",
+                "./img/2.jfif",
+                "./img/2.jfif",
+                "./img/10.png",
+            ]
+
+            // console.log(box.children[box.children.length - 1].offsetTop);
+            // console.log(scroll().top + client().height);
+            if(scroll().top + client().height >= box.children[box.children.length - 1].offsetTop){
+                createDiv(newImgLists);
+            }
+        }
+
+        //屏幕缩放监听事件
+        window.onresize = function(){
+            // console.log("222")
+            waterFall();
+        }
+
+        //所有代码加载完后，在执行以下代码
+        window.onload = function(){
+            waterFall();
+        }
+
+        
+
+    </script>
+</body>
+</html>
